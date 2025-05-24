@@ -2,9 +2,12 @@ import numpy as np
 import json
 
 class EmbeddedTable:
-    def __init__(self, output_labels: list[str] = None, data: dict = {}):
+    def __init__(self, json_path: str, output_labels: list[str] = None, data: dict = {}):
         self.embedding_labels = output_labels
         self.data             = data
+
+        if json_path:
+            self.load_json(json_path)
 
     def load_json(self, json_path: str):
         with open(json_path, 'r') as file:
