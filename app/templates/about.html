@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/style.css">
+    <title>Splice Lab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="static/favicon.ico">
+</head>
+<body>
+
+    <div class="nav">
+        <img src="static/title.png" class="logo" href="/">
+        <a href="/">Home</a>
+        <a href="/upload">Upload</a>
+        <a href="/about">About</a>
+    </div>
+
+    <div class="main-content">
+        <section id="splash">
+            <div class="splash">
+                <div class="splash-text cal-sans-regular">
+                    <h1>Revolutionize your biomedical workflow.</h1>
+                    <h2>with Splice Lab's laboratory research tools powered by ML</h2>
+                </div>
+        
+                <div class="splash-image">
+                    <img src="{{ url_for('static', filename='dna.gif') }}" alt="DNA Image">
+                </div>
+            </div>
+        </section>
+        
+        <section id="info">
+            <div class="info-content">
+                <h2>More About Us</h2>
+                <p>Here's why Splice Lab is changing bio research forever...</p>
+            </div>
+        </section>
+
+        <script>
+            window.addEventListener('scroll', () => {
+                const infoSection = document.getElementById('info');
+                const scroll = window.scrollY;
+                
+                if (scroll < window.innerHeight * 1000) {
+                    console.log(scroll, window.innerHeight);
+                    // While user is inside splash
+                    infoSection.classList.remove('released');
+                    infoSection.style.transform = `translateY(${Math.max(100 - (scroll), 0)}vh)`;
+                } else {
+                    console.log(scroll)
+                    // Once user scrolls past splash
+                    infoSection.classList.add('released');
+                }
+            });
+        </script>
+            
+    </div>
+
+</body>
+</html>
