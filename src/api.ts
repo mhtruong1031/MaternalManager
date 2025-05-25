@@ -17,26 +17,29 @@ const mockResponses: Record<string, string> = {
 
 // Function to simulate API call to get response from backend
 export const getChatResponse = async (userMessage: string): Promise<Message> => {
-  // Simulate network delay
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  
-  // Simple keyword matching for demo purposes
-  let responseContent = mockResponses.default;
-  
-  const lowercaseMessage = userMessage.toLowerCase();
-  
-  if (lowercaseMessage.includes('cry') || lowercaseMessage.includes('crying') || lowercaseMessage.includes('colic')) {
-    responseContent = mockResponses['excessive-crying'];
-  } else if (lowercaseMessage.includes('vomit') || lowercaseMessage.includes('throw up') || lowercaseMessage.includes('throwing up')) {
-    responseContent = mockResponses['vomiting'];
-  } else if (lowercaseMessage.includes('stool') || lowercaseMessage.includes('poop') || lowercaseMessage.includes('constipation') || lowercaseMessage.includes('diarrhea')) {
-    responseContent = mockResponses['stool-problems'];
+  try {
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ message: userMessage }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    
+    return {
+      id: Date.now().toString(),
+      content: data.message,
+      sender: 'bot',
+      timestamp: new Date()
+    };
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
   }
-  
-  return {
-    id: Date.now().toString(),
-    content: responseContent,
-    sender: 'bot',
-    timestamp: new Date()
-  };
 };
