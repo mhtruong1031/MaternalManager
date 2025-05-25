@@ -27,10 +27,10 @@ function App(){
         "h-screen w-screen" } 
       >
         <p className={ "text-white h-screen justify-center items-center" }>Guardian Angel</p>
-      </Gradient>) : (
+      </Gradient>) : 
 
-      <div><ListGroup items={concerns} heading="Recent Concerns" onSelectItem={handleSelectItem}/></div>;
-      )}
+      <div><ListGroup items={concerns} heading="Recent Concerns"/></div>
+      }
 
   </div>
     
