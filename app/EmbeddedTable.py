@@ -29,18 +29,44 @@ class EmbeddedTable:
     
     def find_similar(self, embedding_query: list[int]) -> tuple[str, float]:
         vector_embedding = np.array(embedding_query)
+        confidences      = []
 
-        least_error = 1e99
-        match_label = ""
         for label in self.data.keys():
             disease_embedding = self.get(label)
-            curr_error = np.linalg.norm(vector_embedding - disease_embedding)
+            confidence = self.__calculate_confidence(vector_embedding, disease_embedding)
+            confidences.append(confidence)
 
-            if curr_error < least_error:
-                least_error = curr_error
-                match_label = label
+        return (max(confidences), list(self.data.keys())[confidences.index(max(confidences))])
+    
+    def __calculate_confidence(self, vector_a, vector_b):
+        eps = 1e-8  # to avoid divide by zero
+
+        percent_error = np.abs(vector_a - vector_b) / (np.abs(vector_b) + eps)
+        mean_error = np.mean(percent_error)
+        confidence = 1 - mean_error  # this will be between 0 and 1
+
+        return confidence
+    
+    # Rows are disease states
+    # Columns are symptoms
+    def _calculate_confidence_jacobian(self, vector_a, vector_b_batch):
+        vector_a       = np.array(vector_a)
+        vector_b_batch = np.array(vector_b_batch)
         
-        return (match_label, least_error)
+        eps = 1e-8  # prevent divide by zero
+        n   = len(vector_a)
+        m   = vector_b_batch.shape[0]  # number of vectors in the batch
+        
+        jacobian = np.zeros((m, n))
+        
+        for i in range(m):
+            batch = vector_b_batch[i]
+            term  = 1 - batch / (vector_a + eps)
+            grad  = -(1/n) * np.sign(term) * (batch / ((vector_a + eps)**2))
+            jacobian[i] = grad
+            
+        return jacobian
+        
         
 
 
