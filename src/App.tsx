@@ -70,7 +70,7 @@ function App(){
         className={ 
         "h-screen w-screen" } 
       >
-        <p className={ "text-black h-screen justify-center items-center" }>Guardian Angel</p>
+        <p className={ "text-black h-screen justify-center items-center" }>Guardian Guidance</p>
       </Gradient>) : 
 
       <div>
