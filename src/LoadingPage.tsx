@@ -40,22 +40,4 @@ const Gradient:React.FC<GradientProps> = ({children, className}) => {
     )
 }
 
-/*const [loading, setLoading] = useState(false);
-
-useEffect(() => {
-    setLoading(true)
-    setTimeout(() => {
-    setLoading(false)
-    }, 3000)
-}, [])
-
-function LoadingPage {
-    return(
-        <div>
-            <h1 className={ "text-white" }>Guardian Angel</h1>
-        </div>
-    )
-}
-*/
-
 export default Gradient

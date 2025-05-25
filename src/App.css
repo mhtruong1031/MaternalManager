@@ -1,13 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-$theme-colors: (
-  "yellow": #FAD562,
-  "pink": #FFE3E8,
-  "blue": #D2F2EF,
-  "beige": #FAE4B3,
-  "green": #BAE8C1
-);
-
-@import "bootstrap";
