@@ -1,4 +1,9 @@
 # Logs
+app/_pycache__
+test.py
+config.py
+
+
 logs
 *.log
 npm-debug.log*
