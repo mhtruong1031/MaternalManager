@@ -1,3 +1,7 @@
+app/__pycache__
+test.py
+config.py
+
 # Logs
 logs
 *.log

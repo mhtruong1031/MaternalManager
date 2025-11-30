@@ -1,3 +1,6 @@
+"""
+Guardian Angel backend package
+"""
 from flask import Flask
 from app.routes import main
 
